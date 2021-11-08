@@ -29,6 +29,12 @@ class User implements UserInterface
      */
     private $roles = [];
 
+    /**
+     * @var string
+     * @ORM\Column (type="string")
+     */
+    private $password;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -82,7 +88,7 @@ class User implements UserInterface
      */
     public function getPassword(): ?string
     {
-        return null;
+        return $this->password;
     }
 
     /**
@@ -102,5 +108,13 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
     }
 }

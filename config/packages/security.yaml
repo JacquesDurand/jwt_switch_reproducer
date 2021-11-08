@@ -6,19 +6,24 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            anonymous: lazy
-            provider: app_user_provider
 
         login:
             pattern: ^/api/login
             stateless: true
+            anonymous: true
+            provider: app_user_provider
             json_login:
                 check_path: /api/login_check # or api_login_check as defined in config/routes.yaml
+                username_path: email
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
